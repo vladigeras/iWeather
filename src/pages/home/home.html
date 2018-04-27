@@ -11,43 +11,47 @@
         <h2 class="location">{{weather.display_location.full}}</h2>
         <div class="icon"><img src="{{weather.icon_url}}" alt="Weather Icon"></div>
         <h2 class="description">{{weather.weather}}</h2>
-        <h1 class="temperature">{{weather.temp_c}}&deg; C / {{weather.temp_f}}&deg; F</h1>
+        <h1 class="temperature" *ngIf="properties.celsius || properties.fahrenheit">
+          <span *ngIf="properties.celsius">{{weather.temp_c}}&deg; C</span>
+          <span *ngIf="properties.celsius && properties.fahrenheit">/</span>
+          <span *ngIf="properties.fahrenheit">{{weather.temp_f}}&deg; F</span>
+        </h1>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-item>
+          <ion-item *ngIf="properties.coordinates">
             <strong>Latitude: </strong> {{weather.observation_location.latitude}}
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.coordinates">
             <strong>Longitude: </strong> {{weather.observation_location.longitude}}
           </ion-item>
-          <ion-item>
-            <strong>Temperature: </strong> {{weather.temperature_string}}
-          </ion-item>
-          <ion-item>
-            <strong>Feelslike as: </strong> {{weather.feelslike_c}} &deg; C / {{weather.feelslike_f}} &deg; F
+          <ion-item *ngIf="properties.celsius || properties.fahrenheit">
+            <strong>Feelslike as: </strong>
+            <span *ngIf="properties.celsius">{{weather.feelslike_c}}&deg; C</span>
+            <span *ngIf="properties.celsius && properties.fahrenheit">/</span>
+            <span *ngIf="properties.fahrenheit">{{weather.feelslike_f}}&deg; F</span>
           </ion-item>
           <ion-item>
             <strong>Relative Humidity: </strong> {{weather.relative_humidity}}
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.wind">
             <strong>Wind direction: </strong> {{weather.wind_dir}}
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.wind">
             <strong>Wind speed: </strong> {{weather.wind_mph}} mph / {{weather.wind_kph}} kph
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.dewpoint">
             <strong>Dewpoint: </strong> {{weather.dewpoint_c}} &deg; C / {{weather.dewpoint_f}} &deg; F
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.visibility">
             <strong>Visibility: </strong> {{weather.visibility_km}}
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.heatIndex">
             <strong>Heat index: </strong> {{weather.heat_index_c}} (C) / {{weather.heat_index_f}} (F)
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="properties.localtime">
             <strong>Local time: </strong> {{weather.local_time_rfc822}}>
           </ion-item>
         </ion-list>

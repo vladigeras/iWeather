@@ -19,6 +19,38 @@
             <ion-label class="form-label" stacked>City</ion-label>
             <ion-input placeholder="Obninsk" type="text" [(ngModel)]="city" name="city"></ion-input>
           </ion-item>
+          <ion-item>
+            <ion-label>&deg; C</ion-label>
+            <ion-checkbox [(ngModel)]="isDiplayCelsiusData" name="isCelsius" disabled></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>&deg; F</ion-label>
+            <ion-checkbox [(ngModel)]="isDiplayFahrenheitData" name="isFahrenheit"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Coordinates</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayCoordinates" name="isCoordinates"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Wind</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayWindData" name="isWind"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Dewpoint</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayDewpoint" name="isDewpoint"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Visibility</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayVisibility" name="isVisibility"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Heat index</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayHeatIndex" name="isHeatIndex"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Local time</ion-label>
+            <ion-checkbox [(ngModel)]="isDisplayLocalTime" name="isLocalTime"></ion-checkbox>
+          </ion-item>
           <button class="save-button" ion-button type="submit" block>
             <ion-icon name="build"></ion-icon>
             <span class="save-button-text">Save</span>
