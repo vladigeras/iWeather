@@ -1,3 +1,30 @@
-page-home {
+.home {
+  background: color($colors, primary);
+  margin-top: 30px;
+  color: color($colors, light);
+}
 
+.tabs-md .tab-button-icon {
+  color: #FFFFFF;
+}
+
+.location, .icon, .description, .temperature {
+  text-align: center;
+}
+
+.icon img {
+  width: 110px;
+}
+
+.location {
+  font-size: 40px;
+}
+
+.description {
+  font-size: 30px;
+}
+
+.temperature {
+  font-size: 75px;
+  font-weight: bolder;
 }
