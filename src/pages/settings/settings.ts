@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
-import {HomePage} from "../home/home";
 import {storageSettingLocationKey, storageSettingPropertiesKey} from "../../app/constants";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
   selector: 'page-settings',
@@ -35,7 +35,7 @@ export class SettingsPage {
   saveSettings() {
     this.saveLocation();
     this.saveProperties();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   saveLocation() {
