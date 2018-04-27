@@ -6,7 +6,25 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form (ngSubmit)="saveSettings()">
+          <ion-item>
+            <ion-label class="form-label" stacked>State</ion-label>
+            <ion-input placeholder="RU" type="text" [(ngModel)]="state" name="state"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="form-label" stacked>City</ion-label>
+            <ion-input placeholder="Obninsk" type="text" [(ngModel)]="city" name="city"></ion-input>
+          </ion-item>
+          <button class="save-button" ion-button type="submit" block>
+            <ion-icon name="build"></ion-icon>
+            <span class="save-button-text">Save</span>
+          </button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
