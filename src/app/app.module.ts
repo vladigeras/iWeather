@@ -14,6 +14,9 @@ import {SettingsPage} from "../pages/settings/settings";
 import {WeatherProvider} from '../providers/weather/weather';
 import {HttpClientModule} from "@angular/common/http";
 import {IonicStorageModule} from "@ionic/storage";
+import {Network} from "@ionic-native/network";
+import {LoadingProvider} from '../providers/loading/loading';
+import {ToastProvider} from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -41,9 +44,13 @@ import {IonicStorageModule} from "@ionic/storage";
   ],
   providers: [
     StatusBar,
+    Network,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WeatherProvider
+    WeatherProvider,
+    LoadingProvider,
+    ToastProvider
   ]
 })
 export class AppModule {}
+
