@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
 import {WeatherProvider} from "../../providers/weather/weather";
 import {Storage} from "@ionic/storage";
 import {storageSettingLocationKey, storageSettingPropertiesKey} from "../../app/constants";
-import {LoadingProvider} from "../../providers/loading/loading";
 import {ToastProvider} from "../../providers/toast/toast";
 
 @Component({
@@ -33,7 +32,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private weatherProvider: WeatherProvider,
               private storage: Storage,
-              private loadingProvider: LoadingProvider,
+              private loadingCtrl: LoadingController,
               private toastProvider: ToastProvider) {
   }
 
@@ -50,15 +49,18 @@ export class HomePage {
 
       }
 
-      this.loadingProvider.startLoading();
+      let loading = this.loadingCtrl.create({
+        content: 'Please wait...'
+      });
+      loading.present();
       this.weatherProvider.getWeather(this.location.city, this.location.state).subscribe(
         (weather: any) => {
         this.weather = weather.current_observation;
-        this.loadingProvider.stopLoading();
+        loading.dismiss();
       },
         error => {
           this.toastProvider.showToast("There are some error... Try again later, please!", 5000);
-          this.loadingProvider.stopLoading();
+          loading.dismiss();
         })
     });
   }

@@ -3,6 +3,9 @@ import {NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
 import {storageSettingLocationKey, storageSettingPropertiesKey} from "../../app/constants";
 import {TabsPage} from "../tabs/tabs";
+import {WeatherProvider} from "../../providers/weather/weather";
+import {ToastProvider} from "../../providers/toast/toast";
+import {HomePage} from "../home/home";
 
 @Component({
   selector: 'page-settings',
@@ -24,7 +27,9 @@ export class SettingsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private storage: Storage) {
+              private storage: Storage,
+              private weatherProvider: WeatherProvider,
+              private toastProvider: ToastProvider) {
   }
 
   ionViewWillEnter() {
@@ -35,7 +40,8 @@ export class SettingsPage {
   saveSettings() {
     this.saveLocation();
     this.saveProperties();
-    this.navCtrl.setRoot(TabsPage);
+    this.toastProvider.showToast("Saved", 1000);
+    this.navCtrl.parent.select(TabsPage.getIndexOfTabByPrototype(HomePage.prototype));
   }
 
   saveLocation() {
@@ -97,4 +103,7 @@ export class SettingsPage {
     })
   }
 
+  searchCity(text) {
+
+  }
 }

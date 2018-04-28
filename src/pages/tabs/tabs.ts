@@ -10,12 +10,18 @@ import {SettingsPage} from "../settings/settings";
 })
 export class TabsPage {
 
+  static tabsPrototypes = [];
+
   homePage = HomePage;
   aboutPage = AboutPage;
   contactsPage = ContactsPage;
   settingsPage = SettingsPage;
 
   constructor() {
+    TabsPage.tabsPrototypes.push(HomePage.prototype, AboutPage.prototype, ContactsPage.prototype, SettingsPage.prototype);
+  }
 
+  public static getIndexOfTabByPrototype(className) {
+    return TabsPage.tabsPrototypes.indexOf(className);
   }
 }

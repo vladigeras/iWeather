@@ -15,7 +15,6 @@ import {WeatherProvider} from '../providers/weather/weather';
 import {HttpClientModule} from "@angular/common/http";
 import {IonicStorageModule} from "@ionic/storage";
 import {Network} from "@ionic-native/network";
-import {LoadingProvider} from '../providers/loading/loading';
 import {ToastProvider} from '../providers/toast/toast';
 
 @NgModule({
@@ -48,7 +47,6 @@ import {ToastProvider} from '../providers/toast/toast';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WeatherProvider,
-    LoadingProvider,
     ToastProvider
   ]
 })
