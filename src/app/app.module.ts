@@ -12,10 +12,12 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {SettingsPage} from "../pages/settings/settings";
 import {WeatherProvider} from '../providers/weather/weather';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 import {IonicStorageModule} from "@ionic/storage";
 import {Network} from "@ionic-native/network";
 import {ToastProvider} from '../providers/toast/toast';
+import {AutoCompleteModule} from "ionic2-auto-complete";
+import {AutoCompleteCityProvider} from "../providers/autocompleteCity/autocompleteCity";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {ToastProvider} from '../providers/toast/toast';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientJsonpModule,
+    AutoCompleteModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +51,8 @@ import {ToastProvider} from '../providers/toast/toast';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WeatherProvider,
-    ToastProvider
+    ToastProvider,
+    AutoCompleteCityProvider
   ]
 })
 export class AppModule {}

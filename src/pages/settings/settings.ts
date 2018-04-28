@@ -6,6 +6,7 @@ import {TabsPage} from "../tabs/tabs";
 import {WeatherProvider} from "../../providers/weather/weather";
 import {ToastProvider} from "../../providers/toast/toast";
 import {HomePage} from "../home/home";
+import {AutoCompleteCityProvider} from "../../providers/autocompleteCity/autocompleteCity";
 
 @Component({
   selector: 'page-settings',
@@ -14,7 +15,6 @@ import {HomePage} from "../home/home";
 export class SettingsPage {
 
   city: string;
-  state: string;
 
   isDiplayCelsiusData: boolean;
   isDiplayFahrenheitData: boolean;
@@ -29,7 +29,8 @@ export class SettingsPage {
               public navParams: NavParams,
               private storage: Storage,
               private weatherProvider: WeatherProvider,
-              private toastProvider: ToastProvider) {
+              private toastProvider: ToastProvider,
+              public autocompleteCityProvider: AutoCompleteCityProvider) {
   }
 
   ionViewWillEnter() {
@@ -47,7 +48,6 @@ export class SettingsPage {
   saveLocation() {
     let location = {
       city: this.city,
-      state: this.state
     };
     this.storage.set(storageSettingLocationKey, JSON.stringify(location));
   }
@@ -70,7 +70,6 @@ export class SettingsPage {
     this.storage.get(storageSettingLocationKey).then(value => {
       if (value) {
         let location = JSON.parse(value);
-        this.state = location.state;
         this.city = location.city;
       } else {
 
@@ -101,9 +100,5 @@ export class SettingsPage {
         this.isDisplayHeatIndex = false;
       }
     })
-  }
-
-  searchCity(text) {
-
   }
 }

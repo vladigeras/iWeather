@@ -15,7 +15,6 @@ export class HomePage {
 
   location: {
     city: string,
-    state: string
   };
 
   properties: {
@@ -53,7 +52,7 @@ export class HomePage {
         content: 'Please wait...'
       });
       loading.present();
-      this.weatherProvider.getWeather(this.location.city, this.location.state).subscribe(
+      this.weatherProvider.getWeather(this.location.city).subscribe(
         (weather: any) => {
         this.weather = weather.current_observation;
         loading.dismiss();
