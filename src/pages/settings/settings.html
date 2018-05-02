@@ -11,16 +11,10 @@
     <ion-row>
       <ion-col>
         <form (ngSubmit)="saveSettings()">
-          <!--<ion-item>-->
-          <!--<ion-label class="form-label" stacked>State</ion-label>-->
-          <!--<ion-input placeholder="RU" type="text" [(ngModel)]="state" name="state"></ion-input>-->
-          <!--</ion-item>-->
-          <!--<ion-item>-->
-          <!--<ion-label class="form-label" stacked>City</ion-label>-->
-          <!--<ion-input placeholder="Obninsk" type="text" [(ngModel)]="city" name="city"-->
-          <!--(input)="searchCity(city)"></ion-input>-->
-          <!--</ion-item>-->
-          <ion-auto-complete [dataProvider]="autocompleteCityProvider" [(ngModel)]="city" name="city"></ion-auto-complete>
+          <ion-item class="select-city">
+            <ion-auto-complete [options]="{placeholder: 'Search a city'}" item-content [dataProvider]="autocompleteCityProvider" [(ngModel)]="city"
+                               name="city"></ion-auto-complete>
+          </ion-item>
           <ion-item>
             <ion-label>&deg; C</ion-label>
             <ion-checkbox [(ngModel)]="isDiplayCelsiusData" name="isCelsius" disabled></ion-checkbox>

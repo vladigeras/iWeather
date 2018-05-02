@@ -6,3 +6,13 @@
 .save-button-text {
   margin-left: 5px;
 }
+
+.select-city{ contain:none; overflow: visible; }
+
+.select-city .item-inner {
+  padding-right: inherit !important;
+}
+
+ion-auto-complete {
+  width: 100vw;
+}

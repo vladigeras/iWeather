@@ -3,7 +3,6 @@ import {NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
 import {storageSettingLocationKey, storageSettingPropertiesKey} from "../../app/constants";
 import {TabsPage} from "../tabs/tabs";
-import {WeatherProvider} from "../../providers/weather/weather";
 import {ToastProvider} from "../../providers/toast/toast";
 import {HomePage} from "../home/home";
 import {AutoCompleteCityProvider} from "../../providers/autocompleteCity/autocompleteCity";
@@ -28,7 +27,6 @@ export class SettingsPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private storage: Storage,
-              private weatherProvider: WeatherProvider,
               private toastProvider: ToastProvider,
               public autocompleteCityProvider: AutoCompleteCityProvider) {
   }
@@ -72,7 +70,7 @@ export class SettingsPage {
         let location = JSON.parse(value);
         this.city = location.city;
       } else {
-
+        //TODO: get city via current geoposition
       }
     });
   }

@@ -45,7 +45,8 @@ export class HomePage {
       if (location) {
         this.location = JSON.parse(location);
       } else {
-
+        this.location = {city: "Оbninsk"}
+        //TODO: get city via current geoposition
       }
 
       let loading = this.loadingCtrl.create({
@@ -58,7 +59,7 @@ export class HomePage {
         loading.dismiss();
       },
         error => {
-          this.toastProvider.showToast("There are some error... Try again later, please!", 5000);
+          this.toastProvider.showToast("There are some error... Try again later, please!", 3000);
           loading.dismiss();
         })
     });
