@@ -10,11 +10,17 @@ import {ToastProvider} from "../../providers/toast/toast";
   templateUrl: 'home.html'
 })
 export class HomePage {
+  loading;
 
   weather: any;
 
   location: {
     city: string,
+  };
+
+  geolocation: {
+    latitude: number,
+    longitude: number
   };
 
   properties: {
@@ -36,32 +42,39 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
     this.readLocation();
     this.readProperties();
   }
 
   readLocation() {
     this.storage.get(storageSettingLocationKey).then(location => {
+
       if (location) {
         this.location = JSON.parse(location);
-      } else {
-        this.location = {city: "Оbninsk"}
-        //TODO: get city via current geoposition
-      }
+        this.loading.present();
+        this.getWeather();
 
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...'
-      });
-      loading.present();
-      this.weatherProvider.getWeather(this.location.city).subscribe(
-        (weather: any) => {
-        this.weather = weather.current_observation;
-        loading.dismiss();
-      },
-        error => {
-          this.toastProvider.showToast("There are some error... Try again later, please!", 3000);
-          loading.dismiss();
-        })
+      } else {
+
+        this.loading.present();
+        this.weatherProvider.getCurrentCityByGeolocation().subscribe(
+          (data: any) => {
+            this.location = {city: data.location.city + ", " + data.location.country_name};
+            this.geolocation = {
+              latitude: data.location.lat,
+              longitude: data.location.lon
+            };
+            this.getWeather();
+          },
+          error => {
+            this.toastProvider.showToast("There are some error... Try again later, please!", 3000);
+            this.loading.dismiss();
+          })
+      }
     });
   }
 
@@ -82,5 +95,17 @@ export class HomePage {
         }
       }
     })
+  }
+
+  getWeather() {
+    this.weatherProvider.getWeather(this.location.city).subscribe(
+      (weather: any) => {
+        this.weather = weather.current_observation;
+        this.loading.dismiss();
+      },
+      error => {
+        this.toastProvider.showToast("There are some error... Try again later, please!", 3000);
+        this.loading.dismiss();
+      })
   }
 }

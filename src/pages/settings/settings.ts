@@ -1,11 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
 import {storageSettingLocationKey, storageSettingPropertiesKey} from "../../app/constants";
-import {TabsPage} from "../tabs/tabs";
 import {ToastProvider} from "../../providers/toast/toast";
-import {HomePage} from "../home/home";
 import {AutoCompleteCityProvider} from "../../providers/autocompleteCity/autocompleteCity";
+import {WeatherProvider} from "../../providers/weather/weather";
 
 @Component({
   selector: 'page-settings',
@@ -14,6 +13,11 @@ import {AutoCompleteCityProvider} from "../../providers/autocompleteCity/autocom
 export class SettingsPage {
 
   city: string;
+
+  geolocation: {
+    latitude: number,
+    longitude: number
+  };
 
   isDiplayCelsiusData: boolean;
   isDiplayFahrenheitData: boolean;
@@ -28,7 +32,9 @@ export class SettingsPage {
               public navParams: NavParams,
               private storage: Storage,
               private toastProvider: ToastProvider,
-              public autocompleteCityProvider: AutoCompleteCityProvider) {
+              public autocompleteCityProvider: AutoCompleteCityProvider,
+              private weatherProvider: WeatherProvider,
+              private loadingCtrl: LoadingController) {
   }
 
   ionViewWillEnter() {
@@ -40,7 +46,7 @@ export class SettingsPage {
     this.saveLocation();
     this.saveProperties();
     this.toastProvider.showToast("Saved", 1000);
-    this.navCtrl.parent.select(TabsPage.getIndexOfTabByPrototype(HomePage.prototype));
+    // this.navCtrl.parent.select(TabsPage.getIndexOfTabByPrototype(HomePage.prototype));
   }
 
   saveLocation() {
@@ -69,8 +75,27 @@ export class SettingsPage {
       if (value) {
         let location = JSON.parse(value);
         this.city = location.city;
-      } else {
-        //TODO: get city via current geoposition
+      }
+      else {
+        let loading = this.loadingCtrl.create({
+          content: 'Please wait...'
+        });
+        loading.present();
+
+        this.weatherProvider.getCurrentCityByGeolocation().subscribe(
+          (data: any) => {
+            this.city = data.location.city + ", " + data.location.country_name;
+            this.geolocation = {
+              latitude: data.location.lat,
+              longitude: data.location.lon
+            };
+            loading.dismiss();
+          },
+          error => {
+            this.toastProvider.showToast("There are some error... Try again later, please!", 3000);
+            loading.dismiss();
+          }
+        );
       }
     });
   }

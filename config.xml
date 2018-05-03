@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="ru.vladigeras.iweather" version="1.0.0">
+    <name>iWeather</name>
+    <description>
+    A sample Ionic Weather Application.
+  </description>
+    <author email="gerasimov.v88@gmail.com">
+    Vladislav Gerasimov
+  </author>
+    <content src="index.html" />
+    <access origin="*" />
+
+  <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Need geolocation access to auto locate position"/>
+    </plugin>
+</widget>
